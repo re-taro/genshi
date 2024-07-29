@@ -1,0 +1,25 @@
+{
+  "name": "genshi",
+  "type": "module",
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.6.0",
+  "description": "`genshi` is a simple, lightweight functional programming library for TS.",
+  "author": "Rintaro Itokawa <me@re-taro.dev> (https://re-taro.dev)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/re-taro/genshi"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "fmt": "pnpm lint:eslint --fix",
+    "lint": "pnpm run /^lint:.*/",
+    "lint:eslint": "eslint .",
+    "lint:tsc": "tsc"
+  },
+  "devDependencies": {
+    "@re-taro/eslint-config": "5.1.0",
+    "eslint": "9.8.0",
+    "typescript": "5.5.4"
+  }
+}
