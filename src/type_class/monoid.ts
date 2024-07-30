@@ -9,5 +9,5 @@ import type { Semigroup } from "./semigroup";
  * - Left identity: `M.combine(M.empty, a) === a` for all `a` in `T`. (where `M` is the instance of `Monoid` and `T` is the type of `a`)
  */
 export interface Monoid<T> extends Semigroup<T> {
-  readonly empty: T;
+	readonly empty: T;
 }
