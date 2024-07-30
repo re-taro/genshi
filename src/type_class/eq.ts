@@ -46,7 +46,7 @@ export const structual = <S>(cmp: { readonly [K in keyof S]: PartialEq<S[K], S[K
 export const tuple = <S extends unknown[]>(cmp: { readonly [K in keyof S]: PartialEq<S[K], S[K]> }): PartialEq<Readonly<S>, Readonly<S>> => fromCmp((l, r) => {
 	const len = Math.min(l.length, r.length);
 	for (let i = 0; i < len; i++) {
-		if (!cmp[i]?.eq(l[i], r[i]))
+		if (!(cmp[i] as PartialEq<unknown, unknown>).eq(l[i], r[i]))
 			return false;
 	}
 	return true;
