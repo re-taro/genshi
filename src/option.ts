@@ -1,4 +1,4 @@
-import type { Monad } from "./type_class/monad";
+import type { Monad1 } from "./type_class/monad";
 import type { Monoid } from "./type_class/monoid";
 
 const someSymbol: unique symbol = Symbol("OptionSome");
@@ -11,7 +11,7 @@ export type Option<T> = None | Some<T>;
 declare const optionNominal: unique symbol;
 export type OptionHktKey = typeof optionNominal;
 declare module "./kind" {
-	interface KindDict<A> {
+	interface KindDict1<A> {
 		[optionNominal]: Option<A>;
 	}
 }
@@ -147,7 +147,7 @@ export const monoid = <T>(): Monoid<Option<T>> => ({
 	empty: none(),
 });
 
-export const monad = (): Monad<OptionHktKey> => ({
+export const monad = (): Monad1<OptionHktKey> => ({
 	ap: fnOpt => tOpt => map(zip(fnOpt)(tOpt))(([fn, t]) => fn(t)),
 	flatMap: f => opt => flatMap(opt)(f),
 	pure: some,

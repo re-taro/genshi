@@ -1,6 +1,6 @@
-import type { Kind } from "../kind";
-import type { Apply } from "./apply";
-import type { Pure } from "./pure";
+import type { Kind1, Kind2 } from "../kind";
+import type { Apply1, Apply2 } from "./apply";
+import type { Pure1, Pure2 } from "./pure";
 
 /**
  * ## Applicative
@@ -10,4 +10,5 @@ import type { Pure } from "./pure";
  * - Homomorphism: `A.ap(A.pure(a), A.pure(f)) === A.pure(f(a))` for all `a` in `T` and `f` in `T -> U`. (where `A` is the instance of `Applicative` and `T`, `U` are the types of `a`, `f`)
  * - Interchange: `A.ap(A.pure(a), u) === A.ap(u, A.pure(f => f(a)))` for all `a` in `T` and `u` in `U`. (where `A` is the instance of `Applicative` and `T`, `U` are the types of `a`, `u`)
  */
-export interface Applicative<A extends Kind> extends Apply<A>, Pure<A> { }
+export interface Applicative1<A extends Kind1> extends Apply1<A>, Pure1<A> { }
+export interface Applicative2<A extends Kind2> extends Apply2<A>, Pure2<A> { }

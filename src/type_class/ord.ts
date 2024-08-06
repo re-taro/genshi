@@ -21,7 +21,7 @@ export interface PartialOrd<L, R> extends PartialEq<L, R> {
 declare const partialOrdNominal: unique symbol;
 export type PartialOrdKindKey = typeof partialOrdNominal;
 declare module "../kind" {
-	interface KindDict<A> {
+	interface KindDict1<A> {
 		[partialOrdNominal]: PartialOrd<A, A>;
 	}
 }
