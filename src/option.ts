@@ -1,3 +1,5 @@
+import type { Result } from "./result";
+import { err, isOk, ok } from "./result";
 import type { Monad1 } from "./type_class/monad";
 import type { Monoid } from "./type_class/monoid";
 
@@ -26,16 +28,16 @@ export const fromPredicate = <T>(predicate: (t: T) => boolean) => (t: T): Option
 	return none();
 };
 
-export const toString = <T>(opt: Option<T>): string => opt[0] === someSymbol ? `some(${opt[1]})` : `none`;
+export const isSome = <T>(opt: Option<T>): opt is Some<T> => opt[0] === someSymbol;
+export const isNone = <T>(opt: Option<T>): opt is None => opt[0] === noneSymbol;
+
+export const toString = <T>(opt: Option<T>): string => (isSome(opt) ? `some(${opt[1]})` : `none`);
 export const toArray = <T>(opt: Option<T>): T[] => {
 	const arr = [...opt] as unknown[];
 	arr.shift();
 
 	return arr as T[];
 };
-
-export const isSome = <T>(opt: Option<T>): opt is Some<T> => opt[0] === someSymbol;
-export const isNone = <T>(opt: Option<T>): opt is None => opt[0] === noneSymbol;
 
 export const flatten = <T>(opt: Option<Option<T>>): Option<T> => {
 	if (isSome(opt))
@@ -44,13 +46,13 @@ export const flatten = <T>(opt: Option<Option<T>>): Option<T> => {
 	return opt;
 };
 
-export const and = <T>(optA: Option<T>) => (optB: Option<T>): Option<T> => {
+export const and = <T>(optA: Option<T>) => <U>(optB: Option<U>): Option<U> => {
 	if (isSome(optA))
 		return optB;
 
 	return optA;
 };
-export const andThen = <T>(optA: Option<T>) => (optB: () => Option<T>): Option<T> => {
+export const andThen = <T>(optA: Option<T>) => <U>(optB: () => Option<U>): Option<U> => {
 	if (isSome(optA))
 		return optB();
 
@@ -135,6 +137,8 @@ export const mapOrElse = <U>(fn: () => U) => <T>(opt: Option<T>) => (f: (t: T) =
 	return fn();
 };
 
+export const optResToResOpt = <T, E>(optRes: Option<Result<T, E>>): Result<Option<T>, E> => isSome(optRes) ? (isOk(optRes[1]) ? ok(some(optRes[1][1])) : err(optRes[1][1])) : ok(none());
+
 export const flatMap = <T>(opt: Option<T>) => <U>(f: (t: T) => Option<U>): Option<U> => {
 	if (isSome(opt))
 		return f(opt[1]);
@@ -147,8 +151,8 @@ export const monoid = <T>(): Monoid<Option<T>> => ({
 	empty: none(),
 });
 
-export const monad = (): Monad1<OptionHktKey> => ({
-	ap: fnOpt => tOpt => map(zip(fnOpt)(tOpt))(([fn, t]) => fn(t)),
+export const monad: Monad1<OptionHktKey> = {
+	ap: fnOpt => tOpt => flatMap(fnOpt)(fn => map(tOpt)(t => fn(t))),
 	flatMap: f => opt => flatMap(opt)(f),
 	pure: some,
-});
+};
