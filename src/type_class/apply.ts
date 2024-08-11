@@ -35,6 +35,6 @@ export const apSelective = <Symbol extends symbol>(apply: Apply<Symbol>) => <N e
 		)(funcT),
 	)(funcU);
 
-export const makeSemiGroup = <Symbol extends symbol>(apply: Apply<Symbol>) => <T>(semi: Semigroup<T>): Semigroup<Kind<Symbol, T>> => ({
+export const makeSemigroup = <Symbol extends symbol>(apply: Apply<Symbol>) => <T>(semi: Semigroup<T>): Semigroup<Kind<Symbol, T>> => ({
 	combine: (l, r) => apply.ap(apply.map((l: T) => (r: T) => semi.combine(l, r))(l))(r),
 });

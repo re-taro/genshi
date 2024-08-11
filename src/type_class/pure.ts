@@ -1,10 +1,13 @@
-import type { Kind1, Kind2, KindDict1, KindDict2 } from "../kind";
+import type { Kind, Kind1, Kind2, KindDict1, KindDict2 } from "../kind";
 
 /**
  * ## Pure
  *
  * The `Pure` type class is for types that support the `pure` operation.
  */
+export interface Pure<Symbol extends symbol> {
+	pure: <T>(t: T) => Kind<Symbol, T>;
+}
 export interface Pure1<A extends Kind1> {
 	pure: <T>(a: T) => KindDict1<T>[A];
 }
