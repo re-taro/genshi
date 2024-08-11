@@ -1,8 +1,8 @@
 /* eslint-disable unused-imports/no-unused-vars */
 
 export interface Kind<Symbol extends symbol, A> {
-  _args: A;
-  _symbol: Symbol;
+	_args: A;
+	_symbol: Symbol;
 }
 
 export interface KindDict1<A> { }

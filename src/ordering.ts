@@ -20,6 +20,6 @@ export const then = (first: Ordering, second: Ordering): Ordering => (first === 
 export const thenWith = (first: Ordering, secondFn: () => Ordering): Ordering => first === equal ? secondFn() : first;
 
 export const monoid: Monoid<Ordering> = {
-	conbine: then,
+	combine: then,
 	empty: equal,
 };

@@ -31,7 +31,7 @@ export const strict = <T>(): PartialEq<T, T> => fromCmp<T, T>((l, r) => l === r)
 export const identity: PartialEq<unknown, unknown> = fromCmp(() => true);
 
 export const monoid = <L, R>(): Monoid<PartialEq<L, R>> => ({
-	conbine: (x, y) => ({ eq: (l, r) => x.eq(l, r) && y.eq(l, r) }),
+	combine: (x, y) => ({ eq: (l, r) => x.eq(l, r) && y.eq(l, r) }),
 	empty: identity,
 });
 

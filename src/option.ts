@@ -147,7 +147,7 @@ export const flatMap = <T>(opt: Option<T>) => <U>(f: (t: T) => Option<U>): Optio
 };
 
 export const monoid = <T>(): Monoid<Option<T>> => ({
-	conbine: (l, r) => or(l)(r),
+	combine: (l, r) => or(l)(r),
 	empty: none(),
 });
 

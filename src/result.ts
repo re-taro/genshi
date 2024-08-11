@@ -51,7 +51,7 @@ export const unwrapOrElse = <T>(fn: () => T) => <E>(res: Result<T, E>): T => isO
 export const resOptToOptRes = <T, E>(resOpt: Result<Option<T>, E>): Option<Result<T, E>> => isOk(resOpt) ? (isSome(resOpt[1]) ? some(ok(resOpt[1][1])) : none()) : some(resOpt);
 
 export const monoid = <T, E>(error: E): Monoid<Result<T, E>> => ({
-	conbine: (l, r) => or(l)(r),
+	combine: (l, r) => or(l)(r),
 	empty: err(error),
 });
 

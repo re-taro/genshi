@@ -55,7 +55,7 @@ export const contravariant: Contravariant<PartialOrdKindKey> = {
 export const identity: PartialOrd<unknown, unknown> = fromPartialCmp(() => some(equal));
 
 export const monoid = <L, R>(): Monoid<PartialOrd<L, R>> => ({
-	conbine: (x, y) => ({
+	combine: (x, y) => ({
 		eq: (l, r) => x.eq(l, r) && y.eq(l, r),
 		partialCmp: (l, r) =>
 			flatMap(x.partialCmp(l, r))(first =>
